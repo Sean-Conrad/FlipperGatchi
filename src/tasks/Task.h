@@ -17,5 +17,6 @@ public:
     bool getIsMandatory() const;
     bool isOverdue() const;
     int complete();
+    int getHoursRemaining() const;
 
 };

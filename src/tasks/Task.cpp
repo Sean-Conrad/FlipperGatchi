@@ -29,3 +29,17 @@ int Task::complete() {
     std::cout << "Task '" << name << "' completed! Earned " << rewardCoins << " coins.\n";
     return rewardCoins;
 }
+
+int Task::getHoursRemaining() const {
+    if(!isMandatory) {
+        return 0; //Non-mandatory tasks have no remaining time.
+    }
+
+    // Calculate remaining time in hours based on the deadline.
+    time_t now = std::time(nullptr);
+    int elapsedHours = static_cast<int>((now - creationTime) / 3600);
+    int remainingHours = deadlineHours - elapsedHours;
+
+    return std::max(remainingHours, 0);
+
+}
