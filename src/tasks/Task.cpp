@@ -8,6 +8,10 @@ Task::Task(std::string name, int rewardCoins, bool isMandatory)
     }
 }
 
+bool Task::operator==(const Task& other) const {
+    return (name == other.name);
+}
+
 std::string Task::getName() const { return name;} 
 
 int Task::getRewardCoins() const {return rewardCoins;}
