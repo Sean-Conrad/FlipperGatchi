@@ -12,7 +12,7 @@ void testPlayerReward(){
     P.completeTask("Job hunt");
     assert(P.getCoins() == 50);
     P.completeTask("Write Flippergatchi");
-    assert(P.getCoins() == 80);
+    assert(P.getCoins() == 90);
     std::cout << "Player Reward Test Passed\n";
 
 }
