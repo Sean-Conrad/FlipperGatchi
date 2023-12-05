@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cassert>
 
+
+// Tests task params
 void testTaskCreation() {
     Task t("Gym", 10, false);
     assert(t.getName() == "Gym");
@@ -11,6 +13,7 @@ void testTaskCreation() {
     std::cout << "Task creation test passed.\n";
 }
 
+// Tests various player-task interactions
 void testPlayerTaskInteraction(){
     Player p;
 
@@ -38,9 +41,19 @@ void testPlayerTaskInteraction(){
 
 }
 
+//Test operator==
+void testOperatorEquals(){
+    Task t1("Dance", 5, false);
+    Task t2("Dance", 5, false);
+    assert(t1 == t2);
+
+    std::cout << "Operator Equals tests passed\n";
+}
+
 int main() {
     testTaskCreation();
     testPlayerTaskInteraction();
+    testOperatorEquals();
     std::cout << "All task tests passed!\n";
     return 0;
 }

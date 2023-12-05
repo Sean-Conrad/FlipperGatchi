@@ -2,18 +2,32 @@
 #include "Player.h"
 #include "iostream"
 
-Player :: Player() : level(1) , coins(0) {}
+Player :: Player() : level(1) , coins(0) , exp(0), nextLevel(50) {}
 
 int Player :: getLevel() const {return level;}
 
 int Player :: getCoins() const {return coins;}
 
+int Player :: getExp() const {return exp;}
+
+int Player :: getNextLevel() const {return nextLevel;}
+
+std::vector<Task> Player :: getTasks() {return tasks;}
+
 void Player :: addCoins(int amount) {
     coins+= amount;
 }
 
+void Player :: addExp(int amount) {
+    exp+= amount;
+}
+
 void Player :: levelUp() {
-    level++;
+    if(exp >= nextLevel){
+        level++;
+        nextLevel = nextLevel*2;
+    }
+    
 }
 
 void Player::createTask(const std::string&taskName, int rewardCoins, bool isMandatory) {
@@ -27,6 +41,8 @@ bool Player::completeTask(const std::string& taskName){
             int reward = task.complete();
             if(reward > 0) {
                 addCoins(reward);
+                addExp(reward);
+                levelUp();
                 tasks.erase(std::remove(tasks.begin(), tasks.end(), task), tasks.end());
                 return true; //Task completed and rewarded.
             }
@@ -34,6 +50,18 @@ bool Player::completeTask(const std::string& taskName){
         }
     }
     return false; //Task not found.
+}
+
+bool Player::removeTask(const std::string& taskName){
+    for(Task& task: tasks) {
+        if(task.getName() == taskName){
+            tasks.erase(std::remove(tasks.begin(), tasks.end(), task), tasks.end());
+            std::cout << "Task: " << taskName << " has been removed.\n" ; 
+            return true;
+        }
+    }
+    std::cout << "Task: " << taskName << "does not exist!\n";
+    return false;
 }
 
 void Player::displayTasks() const {
